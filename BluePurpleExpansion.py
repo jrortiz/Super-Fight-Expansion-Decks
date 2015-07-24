@@ -7,43 +7,80 @@ from tkinter import *
 
 class Application(tk.Frame):
 
-    def helloCallBack(self):
-        tk.messagebox.showinfo("Hello Python", "Hello World")
+    def infoCallBack(self):
+        #This will print information about the Program.
+        tk.messagebox.showinfo("INFO", '''Superfight is a hilarious card game based on fights between characters with superpowers and super problems.
+Check it out at: http://www.superfightgame.com/
+This is an independent project that I have created to save me money on the Blue and Purple Deck.
+Written by Jeremy Ortiz''')
 
         
-    def startBlueDeck(self):
-        self.text.get(self,"test", "test?")
-        print("Entering Blue Deck")
+    def callBlueDeck(self):
+        #This will take a card from the blue deck
+        self.text.configure(state="normal")
+        self.text.insert(END,"="*80)
+        self.text.insert(END,"BlueTest\n")
+        self.text.configure(state="disabled")
 
-    def startPurpleDeck(self):
-        print("Entering Purple Deck")
+    def callPurpleDeck(self):
+        #This will take a card from the purple deck
+        self.text.configure(state="normal")
+        self.text.insert(END,"="*80)
+        self.text.insert(END,"PurpleTest\n")
+        self.text.configure(state="disabled")
+
+    def callBothDecks(self):
+        self.text.configure(state="normal")
+        self.text.insert(END,"="*80)
+        self.text.insert(END,"BlueTest\n")
+        self.text.insert(END,"PurpleTest\n")
+        self.text.configure(state="disabled")
+
+
     def __init__(self, master=None):
         tk.Frame.__init__(self, master)
         self.pack()
         self.createWidgets()
     def createWidgets(self):
-            #self.text = tk.Text(self)
-            #self.text.pack()
-            
-            self.Button = tk.Button(self)
-            self.Button["text"] = "Hello"
-            self.Button["command"] = self.helloCallBack
-            self.Button.pack()
 
-            
-            self.blueDeck = tk.Button(self)
+            #Textbox that will print out the cards taken from the deck
+            self.text = tk.Text(self)
+            self.text.pack()
+            self.text.insert(END,'''Welcome to the Blue Deck and Purple Deck program for SuperFight.
+This deck allows you to use the Blue Deck and Purple Deck along with your
+SuperFight game!
+Blue Deck button will give you a location.
+Purple Deck button will give you a situation.
+''')
+            self.text.configure(state="disabled")
+            self.text.insert(END,"test")
+
+            #Blue Deck button widget
+            self.blueDeck = tk.Button(self, fg="blue")
             self.blueDeck["text"] = "Blue Deck"
-            self.blueDeck["command"] = self.startBlueDeck
+            self.blueDeck["command"] = self.callBlueDeck
             self.blueDeck.pack(side="top")
 
-            self.purpleDeck = tk.Button(self)
+            #Purple Deck button widget
+            self.purpleDeck = tk.Button(self, fg="purple")
             self.purpleDeck["text"] = "Purple Deck"
-            self.purpleDeck["command"] = self.startPurpleDeck
+            self.purpleDeck["command"] = self.callPurpleDeck
             self.purpleDeck.pack()
 
+            #Purple Deck button widget
+            self.purpleDeck = tk.Button(self)
+            self.purpleDeck["text"] = "Purple and Blue Deck"
+            self.purpleDeck["command"] = self.callBothDecks
+            self.purpleDeck.pack()
+            
+            #Info Button Widget
+            self.Button = tk.Button(self)
+            self.Button["text"] = "INFO"
+            self.Button["command"] = self.infoCallBack
+            self.Button.pack()
 
+            #Quit button widget
             self.QUIT = tk.Button(self, text="QUIT", fg="red", command=root.destroy)
-
             self.QUIT.pack(side="bottom")
 
 
@@ -53,6 +90,7 @@ class Application(tk.Frame):
 
 
 root = tk.Tk()
+root.wm_title("SuperFight Blue and Purple Deck")
 app = Application(master=root)
 app.mainloop()
 
